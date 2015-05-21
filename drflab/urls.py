@@ -16,9 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from drflab.views import CustomerResource
+from drflab.views import CustomerResource, CustomerResourceOverride
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^customer/override/', CustomerResourceOverride.as_view(), name='customer-override'),
     url(r'^customer/', CustomerResource.as_view(), name='customer'),
 ]

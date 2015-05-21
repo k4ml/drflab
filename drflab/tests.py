@@ -16,3 +16,14 @@ class DRFLabTest(TestCase):
         response = client.post(url, data)
         response_json = json.loads(response.content)
         assert 'extra' not in response_json
+
+    def test_validate_override_invalid_fields_discarded(self):
+        client = APIClient()
+        url = reverse('customer-override')
+        data = {
+            'name': 'kamal',
+            'extra': 'should be discarded',
+        }
+        response = client.post(url, data)
+        response_json = json.loads(response.content)
+        assert 'extra' not in response_json

@@ -7,7 +7,23 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customer
 
     def create(self, validated_data):
-        import pdb;pdb.set_trace()
+        customer = Customer(**validated_data)
+        customer.save()
+        return customer
+
+    def update(self, instance, validated_data):
+        return instance
+
+class CustomerSerializerOverride(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+    name = serializers.CharField()
+
+    def validate(self, data):
+        assert 'extra' not in data, data
+        return data
+
+    def create(self, validated_data):
         customer = Customer(**validated_data)
         customer.save()
         return customer
